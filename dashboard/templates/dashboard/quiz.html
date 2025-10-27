@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Налаштування бізнесу - QuickBiz</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #000000;
+            --primary-hover: #333333;
+            --text-primary: #000000;
+            --text-secondary: #666666;
+            --text-light: #999999;
+            --bg-primary: #ffffff;
+            --bg-secondary: #fafafa;
+            --bg-accent: #f5f5f5;
+            --border-color: #e0e0e0;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.08);
+            --success-color: #22c55e;
+            --error-color: #ef4444;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .quiz-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            padding: 40px;
+            width: 100%;
+            max-width: 600px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quiz-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .logo::before {
+            content: "⚡";
+            font-size: 32px;
+        }
+
+        .quiz-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .quiz-subtitle {
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+
+        .progress-bar {
+            background: var(--bg-accent);
+            height: 6px;
+            border-radius: 3px;
+            margin: 24px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: var(--primary-color);
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .step {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .step-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .step-description {
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        /* Business Type Selection */
+        .business-types {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .business-type {
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .business-type:hover {
+            border-color: var(--primary-color);
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .business-type.selected {
+            border-color: var(--primary-color);
+            background: white;
+            box-shadow: var(--shadow);
+        }
+
+        .business-type-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .business-type-content h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .business-type-content p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* Form Fields */
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 14px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-error {
+            color: var(--error-color);
+            font-size: 14px;
+            margin-top: 6px;
+            display: none;
+        }
+
+        /* Navigation Buttons */
+        .quiz-navigation {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            min-width: 120px;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 2px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-color);
+            color: var(--text-primary);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-back {
+            margin-left: auto;
+        }
+
+        /* Success Animation */
+        .success-animation {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--success-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin: 0 auto 24px;
+            animation: successPulse 0.6s ease-out;
+        }
+
+        @keyframes successPulse {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .loading-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border-color);
+            border-top: 3px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 480px) {
+            .quiz-container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+
+            .business-type {
+                flex-direction: column;
+                text-align: center;
+                gap: 12px;
+            }
+
+            .business-type-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+
+            .quiz-navigation {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <a href="/" class="logo">QuickBiz</a>
+            <h1 class="quiz-title">Налаштуймо ваш бізнес</h1>
+            <p class="quiz-subtitle">Це займе всього кілька хвилин</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <form id="quizForm">
+            {% csrf_token %}
+            
+            <!-- Step 1: Business Type -->
+            <div class="step active" data-step="1">
+                <h2 class="step-title">Який тип сайту ви хочете створити?</h2>
+                <p class="step-description">Оберіть варіант, який найкраще описує ваш бізнес</p>
+                
+                <div class="business-types">
+                    <div class="business-type" data-type="menu">
+                        <div class="business-type-icon">🍽️</div>
+                        <div class="business-type-content">
+                            <h3>Онлайн меню</h3>
+                            <p>Ресторан, кафе, їжа на винос, бар</p>
+                        </div>
+                    </div>
+                    
+                    <div class="business-type" data-type="shop">
+                        <div class="business-type-icon">🛒</div>
+                        <div class="business-type-content">
+                            <h3>Інтернет-магазин</h3>
+                            <p>Продаж товарів онлайн, e-commerce</p>
+                        </div>
+                    </div>
+                    
+                    <div class="business-type" data-type="booking">
+                        <div class="business-type-icon">📅</div>
+                        <div class="business-type-content">
+                            <h3>Система запису</h3>
+                            <p>Салон краси, майстерня, медичні послуги</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <input type="hidden" name="business_type" id="businessType" required>
+            </div>
+
+            <!-- Step 2: Business Info -->
+            <div class="step" data-step="2">
+                <h2 class="step-title">Розкажіть про свій бізнес</h2>
+                <p class="step-description">Ця інформація допоможе нам створити ідеальний сайт для вас</p>
+                
+                <div class="form-group">
+                    <label class="form-label" for="businessName">Назва вашого бізнесу *</label>
+                    <input type="text" name="business_name" id="businessName" class="form-input" required>
+                    <div class="form-error">Це поле обов'язкове</div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="businessDescription">Короткий опис (необов'язково)</label>
+                    <textarea name="business_description" id="businessDescription" class="form-input form-textarea" placeholder="Наприклад: Затишне кафе в центрі міста з домашньою випічкою"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="businessAddress">Адреса (необов'язково)</label>
+                    <input type="text" name="business_address" id="businessAddress" class="form-input" placeholder="вул. Хрещатик 1, Київ">
+                </div>
+            </div>
+
+            <!-- Step 3: Contact Info -->
+            <div class="step" data-step="3">
+                <h2 class="step-title">Контактна інформація</h2>
+                <p class="step-description">Як клієнти зможуть з вами зв'язатись?</p>
+                
+                <div class="form-group">
+                    <label class="form-label" for="businessPhone">Номер телефону *</label>
+                    <input type="tel" name="business_phone" id="businessPhone" class="form-input" placeholder="+380 XX XXX XX XX" required>
+                    <div class="form-error">Введіть правильний номер телефону</div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="businessEmail">Email для замовлень (необов'язково)</label>
+                    <input type="email" name="business_email" id="businessEmail" class="form-input" placeholder="orders@mybusiness.com">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="telegramUsername">Telegram username (необов'язково)</label>
+                    <input type="text" name="telegram_username" id="telegramUsername" class="form-input" placeholder="@username">
+                    <small style="color: var(--text-secondary); font-size: 12px; margin-top: 4px; display: block;">
+                        Для отримання сповіщень про нові замовлення
+                    </small>
+                </div>
+            </div>
+
+            <!-- Step 4: Success -->
+            <div class="step" data-step="4">
+                <div class="success-animation">
+                    <div class="success-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <h2 class="step-title">Чудово! Все готово</h2>
+                    <p class="step-description">Ваш сайт створюється... За кілька секунд ви потрапите в панель управління</p>
+                </div>
+            </div>
+        </form>
+
+        <div class="quiz-navigation">
+            <button type="button" class="btn btn-secondary" id="prevBtn" style="display: none;">
+                <i class="fas fa-arrow-left"></i>
+                Назад
+            </button>
+            <button type="button" class="btn btn-primary" id="nextBtn">
+                Продовжити
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 4;
+        let selectedBusinessType = '';
+
+        // Initialize quiz
+        document.addEventListener('DOMContentLoaded', function() {
+            updateProgress();
+            setupEventListeners();
+        });
+
+        function setupEventListeners() {
+            // Business type selection
+            document.querySelectorAll('.business-type').forEach(type => {
+                type.addEventListener('click', function() {
+                    document.querySelectorAll('.business-type').forEach(t => t.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedBusinessType = this.dataset.type;
+                    document.getElementById('businessType').value = selectedBusinessType;
+                    
+                    // Enable next button
+                    document.getElementById('nextBtn').disabled = false;
+                });
+            });
+
+            // Navigation buttons
+            document.getElementById('nextBtn').addEventListener('click', nextStep);
+            document.getElementById('prevBtn').addEventListener('click', prevStep);
+
+            // Form validation
+            setupFormValidation();
+        }
+
+        function setupFormValidation() {
+            const requiredFields = ['businessName', 'businessPhone'];
+            
+            requiredFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (field) {
+                    field.addEventListener('input', validateField);
+                    field.addEventListener('blur', validateField);
+                }
+            });
+        }
+
+        function validateField(event) {
+            const field = event.target;
+            const errorElement = field.parentElement.querySelector('.form-error');
+            let isValid = true;
+            let errorMessage = 'Це поле обов\'язкове';
+
+            // Reset styles
+            field.style.borderColor = '';
+            if (errorElement) errorElement.style.display = 'none';
+
+            // Validate based on field type
+            if (field.hasAttribute('required') && !field.value.trim()) {
+                isValid = false;
+            } else if (field.type === 'tel' && field.value) {
+                const phoneRegex = /^[\+]?[0-9\s\-\(\)]{10,}$/;
+                if (!phoneRegex.test(field.value)) {
+                    isValid = false;
+                    errorMessage = 'Введіть правильний номер телефону';
+                }
+            } else if (field.type === 'email' && field.value) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(field.value)) {
+                    isValid = false;
+                    errorMessage = 'Введіть правильний email';
+                }
+            }
+
+            if (!isValid) {
+                field.style.borderColor = 'var(--error-color)';
+                if (errorElement) {
+                    errorElement.textContent = errorMessage;
+                    errorElement.style.display = 'block';
+                }
+            }
+
+            return isValid;
+        }
+
+        function validateCurrentStep() {
+            const currentStepElement = document.querySelector(`.step[data-step="${currentStep}"]`);
+            
+            switch(currentStep) {
+                case 1:
+                    return selectedBusinessType !== '';
+                case 2:
+                    const businessName = document.getElementById('businessName');
+                    return validateField({ target: businessName });
+                case 3:
+                    const businessPhone = document.getElementById('businessPhone');
+                    const businessEmail = document.getElementById('businessEmail');
+                    
+                    let valid = validateField({ target: businessPhone });
+                    if (businessEmail.value) {
+                        valid = validateField({ target: businessEmail }) && valid;
+                    }
+                    return valid;
+                default:
+                    return true;
+            }
+        }
+
+        function nextStep() {
+            if (!validateCurrentStep()) {
+                return;
+            }
+
+            if (currentStep < totalSteps) {
+                // Hide current step
+                document.querySelector(`.step[data-step="${currentStep}"]`).classList.remove('active');
+                
+                currentStep++;
+                
+                // Show next step
+                document.querySelector(`.step[data-step="${currentStep}"]`).classList.add('active');
+                
+                updateProgress();
+                updateNavigation();
+
+                // If final step, submit form
+                if (currentStep === totalSteps) {
+                    submitQuiz();
+                }
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                // Hide current step
+                document.querySelector(`.step[data-step="${currentStep}"]`).classList.remove('active');
+                
+                currentStep--;
+                
+                // Show previous step
+                document.querySelector(`.step[data-step="${currentStep}"]`).classList.add('active');
+                
+                updateProgress();
+                updateNavigation();
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentStep - 1) / (totalSteps - 1)) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function updateNavigation() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            // Show/hide previous button
+            if (currentStep > 1 && currentStep < totalSteps) {
+                prevBtn.style.display = 'flex';
+            } else {
+                prevBtn.style.display = 'none';
+            }
+            
+            // Update next button
+            if (currentStep === totalSteps) {
+                nextBtn.style.display = 'none';
+            } else if (currentStep === totalSteps - 1) {
+                nextBtn.innerHTML = '<i class="fas fa-check"></i> Завершити';
+            } else {
+                nextBtn.innerHTML = 'Продовжити <i class="fas fa-arrow-right"></i>';
+            }
+            
+            // Disable next button on step 1 if no business type selected
+            if (currentStep === 1) {
+                nextBtn.disabled = selectedBusinessType === '';
+            } else {
+                nextBtn.disabled = false;
+            }
+        }
+
+        async function submitQuiz() {
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            loadingOverlay.classList.add('show');
+
+            // Collect form data
+            const formData = new FormData();
+            formData.append('business_type', selectedBusinessType);
+            formData.append('business_name', document.getElementById('businessName').value);
+            formData.append('business_description', document.getElementById('businessDescription').value);
+            formData.append('business_address', document.getElementById('businessAddress').value);
+            formData.append('business_phone', document.getElementById('businessPhone').value);
+            formData.append('business_email', document.getElementById('businessEmail').value);
+            formData.append('telegram_username', document.getElementById('telegramUsername').value);
+
+            // Add CSRF token
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+            formData.append('csrfmiddlewaretoken', csrfToken);
+
+            try {
+                const response = await fetch('/dashboard/setup/', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': csrfToken
+                    }
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    
+                    // Simulate processing time for better UX
+                    setTimeout(() => {
+                        loadingOverlay.classList.remove('show');
+                        // Redirect to dashboard
+                        window.location.href = '/dashboard/';
+                    }, 2000);
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                loadingOverlay.classList.remove('show');
+                alert('Виникла помилка. Спробуйте ще раз.');
+                
+                // Go back to previous step
+                currentStep--;
+                document.querySelector(`.step[data-step="${currentStep + 1}"]`).classList.remove('active');
+                document.querySelector(`.step[data-step="${currentStep}"]`).classList.add('active');
+                updateProgress();
+                updateNavigation();
+            }
+        }
+
+        // Phone number formatting
+        document.getElementById('businessPhone').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            
+            if (value.startsWith('380')) {
+                value = '+' + value;
+            } else if (value.startsWith('0')) {
+                value = '+38' + value;
+            } else if (value.length > 0 && !value.startsWith('+')) {
+                value = '+380' + value;
+            }
+            
+            // Format as +380 XX XXX XX XX
+            if (value.length > 4) {
+                value = value.slice(0, 4) + ' ' + value.slice(4);
+            }
+            if (value.length > 7) {
+                value = value.slice(0, 7) + ' ' + value.slice(7);
+            }
+            if (value.length > 11) {
+                value = value.slice(0, 11) + ' ' + value.slice(11);
+            }
+            if (value.length > 14) {
+                value = value.slice(0, 14) + ' ' + value.slice(14);
+            }
+            
+            e.target.value = value.slice(0, 17); // Limit length
+        });
+
+        // Telegram username formatting
+        document.getElementById('telegramUsername').addEventListener('input', function(e) {
+            let value = e.target.value;
+            if (value && !value.startsWith('@')) {
+                value = '@' + value.replace('@', '');
+            }
+            e.target.value = value;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickBiz - Твій бізнес онлайн за 5 хвилин</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #000000;
+            --primary-hover: #333333;
+            --text-primary: #000000;
+            --text-secondary: #666666;
+            --text-light: #999999;
+            --bg-primary: #ffffff;
+            --bg-secondary: #fafafa;
+            --bg-accent: #f5f5f5;
+            --border-color: #e0e0e0;
+            --gradient: linear-gradient(135deg, #000000 0%, #333333 100%);
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.08);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            padding: 15px 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo {
+            font-size: clamp(20px, 4vw, 24px);
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 101;
+        }
+
+        .logo::before {
+            content: "⚡";
+            font-size: clamp(22px, 4vw, 28px);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: clamp(16px, 3vw, 32px);
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: clamp(14px, 2vw, 16px);
+            transition: color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-cta {
+            background: var(--primary-color);
+            color: white;
+            padding: clamp(8px, 2vw, 12px) clamp(12px, 3vw, 24px);
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: clamp(12px, 2vw, 16px);
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary-color);
+            white-space: nowrap;
+        }
+
+        .nav-cta:hover {
+            background: transparent;
+            color: var(--primary-color);
+            transform: translateY(-1px);
+        }
+
+        /* Mobile menu */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 101;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 100;
+            padding: 80px 20px 20px;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .mobile-menu a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 600;
+            padding: 15px 30px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            background: var(--bg-accent);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: clamp(40px, 8vw, 80px) 0 clamp(60px, 12vw, 120px);
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at top, rgba(0, 0, 0, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: clamp(28px, 8vw, 72px);
+            font-weight: 800;
+            margin-bottom: clamp(16px, 4vw, 24px);
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: clamp(16px, 3vw, 20px);
+            color: var(--text-secondary);
+            margin-bottom: clamp(24px, 6vw, 48px);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+            padding: clamp(12px, 3vw, 16px) clamp(20px, 4vw, 32px);
+            border: none;
+            border-radius: 12px;
+            font-size: clamp(14px, 2.5vw, 16px);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            white-space: nowrap;
+            min-width: fit-content;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            padding: clamp(12px, 3vw, 16px) clamp(20px, 4vw, 32px);
+            border: 2px solid var(--primary-color);
+            border-radius: 12px;
+            font-size: clamp(14px, 2.5vw, 16px);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            white-space: nowrap;
+            min-width: fit-content;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Features Grid */
+        .features {
+            padding: clamp(40px, 8vw, 80px) 0;
+            background: var(--bg-secondary);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+            gap: clamp(16px, 4vw, 32px);
+            margin-top: clamp(32px, 8vw, 64px);
+        }
+
+        .feature-card {
+            background: white;
+            padding: clamp(24px, 5vw, 40px);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .feature-icon {
+            width: clamp(50px, 8vw, 60px);
+            height: clamp(50px, 8vw, 60px);
+            background: var(--primary-color);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(20px, 4vw, 24px);
+            margin-bottom: clamp(16px, 4vw, 24px);
+            color: white;
+        }
+
+        .feature-card h3 {
+            font-size: clamp(18px, 4vw, 24px);
+            font-weight: 700;
+            margin-bottom: clamp(12px, 3vw, 16px);
+            color: var(--text-primary);
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: clamp(14px, 2.5vw, 16px);
+            line-height: 1.6;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title h2 {
+            font-size: clamp(28px, 6vw, 48px);
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: clamp(12px, 3vw, 16px);
+        }
+
+        .section-title p {
+            font-size: clamp(16px, 3vw, 18px);
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Demo Section */
+        .demo {
+            padding: clamp(40px, 8vw, 80px) 0;
+        }
+
+        .demo-showcase {
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-top: clamp(24px, 6vw, 48px);
+        }
+
+        .demo-tabs {
+            display: flex;
+            background: var(--bg-accent);
+            border-bottom: 1px solid var(--border-color);
+            overflow-x: auto;
+        }
+
+        .demo-tab {
+            flex: 1;
+            min-width: fit-content;
+            padding: clamp(15px, 3vw, 20px);
+            text-align: center;
+            background: transparent;
+            border: none;
+            font-weight: 600;
+            font-size: clamp(12px, 2.5vw, 16px);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+
+        .demo-tab.active {
+            background: white;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .demo-content {
+            padding: clamp(24px, 5vw, 40px);
+            min-height: clamp(200px, 30vw, 300px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%);
+        }
+
+        .demo-preview {
+            text-align: center;
+            color: var(--text-secondary);
+            max-width: 100%;
+        }
+
+        .demo-preview h3 {
+            font-size: clamp(16px, 3vw, 20px);
+            margin-bottom: 8px;
+        }
+
+        .demo-preview p {
+            font-size: clamp(14px, 2.5vw, 16px);
+            margin-bottom: 8px;
+        }
+
+        .demo-preview strong {
+            font-size: clamp(16px, 3vw, 18px);
+        }
+
+        .demo-preview button {
+            font-size: clamp(12px, 2.5vw, 14px);
+            padding: clamp(6px, 2vw, 8px) clamp(12px, 3vw, 16px);
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: clamp(60px, 10vw, 100px) 0;
+            background: var(--gradient);
+            color: white;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: clamp(28px, 6vw, 48px);
+            font-weight: 800;
+            margin-bottom: clamp(16px, 4vw, 24px);
+        }
+
+        .cta p {
+            font-size: clamp(16px, 3vw, 20px);
+            margin-bottom: clamp(32px, 6vw, 48px);
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta .btn-primary {
+            background: white;
+            color: var(--primary-color);
+            font-size: clamp(16px, 3vw, 18px);
+            padding: clamp(16px, 4vw, 20px) clamp(24px, 5vw, 40px);
+            border: 2px solid white;
+        }
+
+        .cta .btn-primary:hover {
+            background: transparent;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-primary);
+            color: white;
+            padding: clamp(40px, 8vw, 60px) 0 clamp(20px, 4vw, 30px);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+            gap: clamp(20px, 5vw, 40px);
+            margin-bottom: clamp(20px, 5vw, 40px);
+        }
+
+        .footer-section h4 {
+            font-size: clamp(16px, 3vw, 18px);
+            font-weight: 700;
+            margin-bottom: clamp(15px, 4vw, 20px);
+            color: white;
+        }
+
+        .footer-section a {
+            color: var(--text-light);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+            font-size: clamp(14px, 2.5vw, 16px);
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #374151;
+            padding-top: clamp(20px, 4vw, 30px);
+            text-align: center;
+            color: var(--text-light);
+            font-size: clamp(12px, 2.5vw, 14px);
+        }
+
+        /* Responsive breakpoints */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 16px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .nav-cta {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: stretch;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+            
+            .demo-tabs {
+                flex-direction: column;
+            }
+            
+            .demo-tab {
+                flex: none;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 12px;
+            }
+
+            .hero-buttons .btn-primary,
+            .hero-buttons .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .demo-preview small {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .feature-card {
+                padding: 20px;
+            }
+
+            .demo-content {
+                padding: 20px;
+            }
+        }
+
+        /* Landscape orientation on mobile */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .hero {
+                padding: 30px 0 40px;
+            }
+
+            .mobile-menu.active {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 15px;
+                padding: 60px 20px 20px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feature-card {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+
+        /* Accessibility improvements */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            :root {
+                --shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+                --shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.4);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <div class="nav-content">
+                <a href="#" class="logo">QuickBiz</a>
+                <ul class="nav-links">
+                    <li><a href="#features">Можливості</a></li>
+                    <li><a href="#demo">Демо</a></li>
+                    <li><a href="#pricing">Ціни</a></li>
+                    <li><a href="#support">Підтримка</a></li>
+                </ul>
+                <a href="#" class="nav-cta">Спробувати безкоштовно</a>
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#features" onclick="closeMobileMenu()">Можливості</a>
+        <a href="#demo" onclick="closeMobileMenu()">Демо</a>
+        <a href="#pricing" onclick="closeMobileMenu()">Ціни</a>
+        <a href="#support" onclick="closeMobileMenu()">Підтримка</a>
+        <a href="#" class="btn-primary" onclick="closeMobileMenu()">Спробувати безкоштовно</a>
+    </div>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Твій бізнес онлайн за 5 хвилин</h1>
+                <p>Створюй меню, магазини та системи запису без програмування. Просто, швидко, по-українськи.</p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn-primary">
+                        <span>Спробувати зараз</span>
+                        <span>→</span>
+                    </a>
+                    <a href="#demo" class="btn-secondary">Переглянути демо</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Все для твого бізнесу в одному місці</h2>
+                <p>Створюй сайти без заморочок. Три кліки — і готово!</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🍽️</div>
+                    <h3>Меню за 5 хвилин</h3>
+                    <p>QR-код, фото страв, ціни — все готово. Відвідувачі скануют і замовляють миттєво.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛒</div>
+                    <h3>Магазин за 10 хвилин</h3>
+                    <p>Додай товари, налаштуй оплату — продавай з першого дня. Клієнти платять, ти отримуєш гроші.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📅</div>
+                    <h3>Запис без дзвінків</h3>
+                    <p>Клієнти записуються самі, коли хочуть. Ти бачиш розклад, вони отримують нагадування.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="demo" id="demo">
+        <div class="container">
+            <div class="section-title">
+                <h2>Дивись, як просто</h2>
+                <p>Обери, що хочеш створити — побачиш результат</p>
+            </div>
+            <div class="demo-showcase">
+                <div class="demo-tabs">
+                    <button class="demo-tab active" onclick="showDemo('menu')">Онлайн меню</button>
+                    <button class="demo-tab" onclick="showDemo('shop')">Інтернет-магазин</button>
+                    <button class="demo-tab" onclick="showDemo('booking')">Запис онлайн</button>
+                </div>
+                <div class="demo-content">
+                    <div class="demo-preview" id="demo-content">
+                        <h3>🍕 Піца "Маргарита"</h3>
+                        <p>Соус томатний, сир моцарела, базилік свіжий</p>
+                        <strong>₴280</strong>
+                        <br><br>
+                        <small>Приклад відображення страви в онлайн меню</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>Почни прямо зараз</h2>
+            <p>Тисячі українських підприємців вже заробляють з QuickBiz</p>
+            <a href="#" class="btn-primary">Створити безкоштовно</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Продукт</h4>
+                    <a href="#">Можливості</a>
+                    <a href="#">Ціни</a>
+                    <a href="#">Шаблони</a>
+                    <a href="#">API</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Підтримка</h4>
+                    <a href="#">Довідка</a>
+                    <a href="#">Навчальні матеріали</a>
+                    <a href="#">Контакти</a>
+                    <a href="#">Статус сервісу</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Компанія</h4>
+                    <a href="#">Про нас</a>
+                    <a href="#">Блог</a>
+                    <a href="#">Кар'єра</a>
+                    <a href="#">Партнери</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Правова інформація</h4>
+                    <a href="#">Політика конфіденційності</a>
+                    <a href="#">Умови використання</a>
+                    <a href="#">Безпека</a>
+                    <a href="#">GDPR</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 QuickBiz. Всі права захищені.</p>
+                <p>Слава Україні <span title="Україна" aria-label="Український прапор">🇺🇦</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu functionality
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            
+            if (mobileMenu.classList.contains('active')) {
+                closeMobileMenu();
+            } else {
+                mobileMenu.classList.add('active');
+                toggle.innerHTML = '✕';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            
+            mobileMenu.classList.remove('active');
+            toggle.innerHTML = '☰';
+            document.body.style.overflow = '';
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            
+            if (!mobileMenu.contains(e.target) && !toggle.contains(e.target) && mobileMenu.classList.contains('active')) {
+                closeMobileMenu();
+            }
+        });
+
+        // Demo tabs functionality
+        function showDemo(type) {
+            // Update active tab
+            document.querySelectorAll('.demo-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Update demo content
+            const content = document.getElementById('demo-content');
+            
+            switch(type) {
+                case 'menu':
+                    content.innerHTML = `
+                        <h3>🍕 Піца "Маргарита"</h3>
+                        <p>Соус томатний, сир моцарела, базилік свіжий</p>
+                        <strong>₴280</strong>
+                        <br><br>
+                        <small>Приклад відображення страви в онлайн меню</small>
+                    `;
+                    break;
+                case 'shop':
+                    content.innerHTML = `
+                        <h3>👕 Футболка класична</h3>
+                        <p>100% бавовна, різні кольори та розміри</p>
+                        <strong>₴450</strong>
+                        <button style="background: #000000; color: white; padding: 8px 16px; border: none; border-radius: 6px; margin-top: 10px;">Додати в кошик</button>
+                        <br><br>
+                        <small>Приклад товару в інтернет-магазині</small>
+                    `;
+                    break;
+                case 'booking':
+                    content.innerHTML = `
+                        <h3>💇‍♀️ Стрижка + укладання</h3>
+                        <p>Тривалість: 1 година 30 хвилин</p>
+                        <strong>₴800</strong>
+                        <button style="background: #000000; color: white; padding: 8px 16px; border: none; border-radius: 6px; margin-top: 10px;">Записатися</button>
+                        <br><br>
+                        <small>Приклад послуги для онлайн запису</small>
+                    `;
+                    break;
+            }
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    closeMobileMenu(); // Close mobile menu if open
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to navbar
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(255, 255, 255, 0.98)';
+                nav.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                nav.style.background = 'rgba(255, 255, 255, 0.95)';
+                nav.style.boxShadow = 'none';
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                closeMobileMenu();
+            }
+        });
+
+        // Touch gesture support for mobile
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+
+        document.addEventListener('touchmove', function(e) {
+            if (!touchStartX || !touchStartY) {
+                return;
+            }
+
+            const touchEndX = e.touches[0].clientX;
+            const touchEndY = e.touches[0].clientY;
+            const diffX = touchStartX - touchEndX;
+            const diffY = touchStartY - touchEndY;
+
+            // If horizontal swipe is greater than vertical and mobile menu is open
+            if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+                const mobileMenu = document.getElementById('mobileMenu');
+                if (mobileMenu.classList.contains('active') && diffX < 0) {
+                    // Swipe right to close menu
+                    closeMobileMenu();
+                }
+            }
+
+            touchStartX = 0;
+            touchStartY = 0;
+        }, { passive: true });
+
+        // Prevent body scroll when mobile menu is open
+        document.addEventListener('touchmove', function(e) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenu.classList.contains('active')) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        // Initialize intersection observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe feature cards for animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const featureCards = document.querySelectorAll('.feature-card');
+            featureCards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+                observer.observe(card);
+            });
+        });
+
+        // Add keyboard navigation support
+        document.addEventListener('keydown', function(e) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            // Escape key closes mobile menu
+            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                closeMobileMenu();
+            }
+            
+            // Enter key on mobile menu toggle
+            if (e.key === 'Enter' && e.target.classList.contains('mobile-menu-toggle')) {
+                toggleMobileMenu();
+            }
+        });
+
+        // Improve focus management for accessibility
+        const focusableElements = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+
+        function trapFocus(element) {
+            const focusableContent = element.querySelectorAll(focusableElements);
+            const firstFocusableElement = focusableContent[0];
+            const lastFocusableElement = focusableContent[focusableContent.length - 1];
+
+            document.addEventListener('keydown', function(e) {
+                const isTabPressed = e.key === 'Tab' || e.keyCode === 9;
+
+                if (!isTabPressed) {
+                    return;
+                }
+
+                if (e.shiftKey) {
+                    if (document.activeElement === firstFocusableElement) {
+                        lastFocusableElement.focus();
+                        e.preventDefault();
+                    }
+                } else {
+                    if (document.activeElement === lastFocusableElement) {
+                        firstFocusableElement.focus();
+                        e.preventDefault();
+                    }
+                }
+            });
+        }
+
+        // Apply focus trap when mobile menu is open
+        document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenu.classList.contains('active')) {
+                trapFocus(mobileMenu);
+            }
+        });
+    </script>
+</body>
+</html>

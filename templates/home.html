@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickBiz - Твій бізнес онлайн за 5 хвилин</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="{% static 'js/main.js' %}" defer></script>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <div class="nav-content">
+                <a href="#" class="logo">QuickBiz</a>
+                <ul class="nav-links">
+                    <li><a href="#features">Можливості</a></li>
+                    <li><a href="#demo">Демо</a></li>
+                    <li><a href="#pricing">Ціни</a></li>
+                    <li><a href="#support">Підтримка</a></li>
+                </ul>
+                <a href="{% url 'users:register' %}" class="nav-cta">Спробувати безкоштовно</a>
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#features" onclick="closeMobileMenu()">Можливості</a>
+        <a href="#demo" onclick="closeMobileMenu()">Демо</a>
+        <a href="#pricing" onclick="closeMobileMenu()">Ціни</a>
+        <a href="#support" onclick="closeMobileMenu()">Підтримка</a>
+        <a href="{% url 'users:register' %}" class="btn-primary" onclick="closeMobileMenu()">Спробувати безкоштовно</a>
+    </div>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Твій бізнес онлайн за 5 хвилин</h1>
+                <p>Створюй меню, магазини та системи запису без програмування. Просто, швидко, по-українськи.</p>
+                <div class="hero-buttons">
+                    <a href="{% url 'users:register' %}" class="btn-primary">
+                        <span>Спробувати зараз</span>
+                        <span>→</span>
+                    </a>
+                    <a href="#demo" class="btn-secondary">Переглянути демо</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Все для твого бізнесу в одному місці</h2>
+                <p>Створюй сайти без заморочок. Три кліки — і готово!</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🍽️</div>
+                    <h3>Меню за 5 хвилин</h3>
+                    <p>QR-код, фото страв, ціни — все готово. Відвідувачі скануют і замовляють миттєво.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛒</div>
+                    <h3>Магазин за 10 хвилин</h3>
+                    <p>Додай товари, налаштуй оплату — продавай з першого дня. Клієнти платять, ти отримуєш гроші.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📅</div>
+                    <h3>Запис без дзвінків</h3>
+                    <p>Клієнти записуються самі, коли хочуть. Ти бачиш розклад, вони отримують нагадування.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="demo" id="demo">
+        <div class="container">
+            <div class="section-title">
+                <h2>Дивись, як просто</h2>
+                <p>Обери, що хочеш створити — побачиш результат</p>
+            </div>
+            <div class="demo-showcase">
+                <div class="demo-tabs">
+                    <button class="demo-tab active" onclick="showDemo('menu')">Онлайн меню</button>
+                    <button class="demo-tab" onclick="showDemo('shop')">Інтернет-магазин</button>
+                    <button class="demo-tab" onclick="showDemo('booking')">Запис онлайн</button>
+                </div>
+                <div class="demo-content">
+                    <div class="demo-preview" id="demo-content">
+                        <h3>🍕 Піца "Маргарита"</h3>
+                        <p>Соус томатний, сир моцарела, базилік свіжий</p>
+                        <strong>₴280</strong>
+                        <br><br>
+                        <small>Приклад відображення страви в онлайн меню</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>Почни прямо зараз</h2>
+            <p>Тисячі українських підприємців вже заробляють з QuickBiz</p>
+            <a href="#" class="btn-primary">Створити безкоштовно</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Продукт</h4>
+                    <a href="#">Можливості</a>
+                    <a href="#">Ціни</a>
+                    <a href="#">Шаблони</a>
+                    <a href="#">API</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Підтримка</h4>
+                    <a href="#">Довідка</a>
+                    <a href="#">Навчальні матеріали</a>
+                    <a href="#">Контакти</a>
+                    <a href="#">Статус сервісу</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Компанія</h4>
+                    <a href="#">Про нас</a>
+                    <a href="#">Блог</a>
+                    <a href="#">Кар'єра</a>
+                    <a href="#">Партнери</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Правова інформація</h4>
+                    <a href="#">Політика конфіденційності</a>
+                    <a href="#">Умови використання</a>
+                    <a href="#">Безпека</a>
+                    <a href="#">GDPR</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 QuickBiz. Всі права захищені.</p>
+                <p>Слава Україні <span title="Україна" aria-label="Український прапор">🇺🇦</span></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

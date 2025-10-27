@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>{{ business.name }}</title>
+    <style>
+        /* сброс и фон */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background: #fafafa;
+        }
+
+        /* header должен быть вплотную к верху + поддержка "notch" */
+        header.header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            margin: 0;
+            padding-top: env(safe-area-inset-top);
+            background: #fff;
+        }
+        header section { display: block; overflow: hidden; }
+
+        /* изображение — блочное, чтобы не оставалось межстрочных пробелов */
+        .cover {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: 220px;
+            min-height: 120px;
+            object-fit: cover;
+            border-bottom-left-radius: clamp(16px, 4vw, 32px);
+            border-bottom-right-radius: clamp(16px, 4vw, 32px);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+
+        /* We'll add styles here */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        line-height: 1.6;
+        color: #000000;
+        background: #fafafa;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+    .header {
+        background: white;
+        padding: 24px 0;
+        border-bottom: 1px solid #e0e0e0;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    .business-name {
+        font-size: 28px;
+        font-weight: 700;
+        /* сдвиг вниз */
+        margin-top: 12px;                 /* измените на 8/16/24px по вкусу */
+        /* или использовать более гибкий отступ для разных экранов:
+           margin-top: clamp(8px, 2.5vw, 20px);
+        */
+    }
+
+    /* если заголовок внутри .header, можно добавить паддинг у контейнера */
+    .header .container {
+        padding-top: env(safe-area-inset-top, 12px); /* учитывает вырезы на iOS */
+    }
+
+    /* мобильная версия: чуть больше отступа */
+    @media (max-width: 480px) {
+        .business-name {
+            margin-top: 16px;
+        }
+    }
+
+    .business-address {
+        font-size: 11px;
+        font-weight: 500;
+        color: #666666;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+        /* Hero Section */
+    .hero {
+        background: white;
+        padding: 40px 0;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .hero-title {
+        font-size: 22px;
+        font-weight: 600;
+        color: #000000;
+        text-align: center;
+        margin-bottom: 32px;
+    }
+
+    .info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 16px;
+    }
+
+    .info-card {
+        background: #fafafa;
+        border: 1px solid #e0e0e0;
+        border-radius: 12px;
+        padding: 16px;
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+    }
+
+    .info-icon {
+        font-size: 24px;
+        flex-shrink: 0;
+    }
+
+    .info-content {
+        flex: 1;
+    }
+
+    .info-label {
+        font-size: 11px;
+        font-weight: 600;
+        color: #999999;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 4px;
+    }
+
+    .info-value {
+        font-size: 15px;
+        font-weight: 500;
+        color: #000000;
+    }
+
+    .info-link {
+        text-decoration: none;
+        color: #000000;
+    }
+
+    .info-link:active {
+        opacity: 0.6;
+    }
+
+    /* Cover Image - Responsive */
+        .cover {
+            width: 100%;
+            height: auto;                  /* делаем высоту авто по умолчанию */
+            max-height: 220px;             /* ограничиваем максимальную высоту */
+            min-height: 140px;             /* минимальная высота (по желанию) */
+            object-fit: cover;             /* сохранение пропорций и обрезка по краям */
+            border-bottom-left-radius: clamp(16px, 4vw, 32px);
+            border-bottom-right-radius: clamp(16px, 4vw, 32px);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+
+        /* Меньшая высота на очень маленьких экранах */
+        @media (max-width: 480px) {
+            .cover {
+                max-height: 160px;
+                min-height: 120px;
+            }
+        }
+
+        /* Немного выше для больших экранов */
+        @media (min-width: 1024px) {
+            .cover {
+                max-height: 300px;
+            }
+        }
+        .footer-bottom {
+            color: #000000;
+            text-decoration: none;
+            padding-top: clamp(20px, 4vw, 30px);
+            text-align: center;
+            color: var(--text-light);
+            font-size: clamp(14px, 2.5vw, 14px);
+        }
+
+        .footer-bottom a {
+    color: #000000;         /* чёрный текст */
+    text-decoration: none;  /* убрать подчёркивание */
+    font-weight: 500;       /* опционально — сделать чуть жирнее */
+}
+
+/* состояние при наведении/фокусе (рекомендовано для доступности) */
+.footer-bottom a:hover,
+.footer-bottom a:focus {
+    color: #111111;
+    text-decoration: underline;
+}
+
+/* Logo Container - Responsive */
+        .cafe-logo-container {
+            position: absolute;
+            width: clamp(60px, 15vw, 80px);
+            height: clamp(60px, 15vw, 80px);
+            right: clamp(20px, 5vw, 40px);
+            top: calc(40vh - clamp(30px, 7.5vw, 40px));
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--popover-bg-color) 0%, var(--bg-color) 100%);
+            box-shadow: var(--shadow-heavy);
+            z-index: 10;
+            border: 3px solid var(--accent-color);
+            transition: all 0.3s ease;
+        }
+
+        @media (min-width: 768px) {
+            .cafe-logo-container {
+                top: calc(50vh - clamp(30px, 7.5vw, 40px));
+            }
+        }
+
+        .cafe-logo-container:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: var(--shadow-heavy), 0 0 20px var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- We'll add content here -->
+    <header class="header">
+        {% if not business.cover_image %}
+        <div id="content">
+        <div id="page-current" class="page">
+            <section>
+                <!-- Cover Image -->
+                <img class="cover" 
+                     src="https://htmlcolorcodes.com/assets/images/colors/light-gray-color-solid-background-1920x1080.png" 
+                     alt="Laurel Cafe Interior"
+                     loading="eager" />
+                
+            </section>
+        </div>
+        </div>
+        {% endif %}
+        <div class="container">
+            <h1 class="business-name">{{ business.name }}</h1>
+            <p class="business-address">{{ business.address }}</p>
+        </div>
+    </header>
+    <section class="hero">
+        <div class="container">
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-icon">👤</div>
+                    <div class="info-content">
+                        <div class="info-label"></div>
+                        <a href="#" class="info-value info-link">
+                            Вибрати співробітника
+                        </a>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">📅</div>
+                    <div class="info-content">
+                        <div class="info-label"></div>
+                        <a href="#" class="info-value info-link">
+                            Вибір дати та часу
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-icon">📃</div>
+                    <div class="info-content">
+                        <div class="info-label"></div>
+                        <a href="#" class="info-value info-link">
+                            Вибір послуг
+                        </a>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-bottom">
+            <a href="/">Powered by <span>⚡</span>QuickBiz</a>
+        </div>
+    </footer>
+    
+
+</body>
+</html>

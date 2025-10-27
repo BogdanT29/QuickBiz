@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}QuickBiz{% endblock %}
+    </title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="{% url 'homepage' %}" class="logo">
+                    <span class="logo-icon">⚡</span>
+                    QuickBiz
+                </a>
+                
+                <ul class="nav-links">
+                    <li><a href="#features">Послуги</a></li>
+                    <li><a href="#demo">Тарифи</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'dashboard:dashboard' %}">
+                            <i class="fas fa-tachometer-alt"></i> Панель
+                        </a></li>
+                    {% endif %}
+                </ul>
+
+                <div class="nav-actions">
+                    {% if user.is_authenticated %}
+                        <div class="user-menu">
+                            <span class="user-greeting">Привіт, {{ user.username }}!</span>
+                            <form class="logout-form" action="{% url 'users:logout' %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-logout">
+                                    <i class="fas fa-sign-out-alt"></i> Вийти
+                                </button>
+                            </form>
+                        </div>
+                    {% else %}
+                        <a href="{% url 'users:login' %}" class="btn-secondary">Увійти</a>
+                        <a href="{% url 'users:register' %}" class="btn-primary">Реєстрація</a>
+                    {% endif %}
+                </div>
+
+                <button class="mobile-menu-toggle" id="mobile-menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-content">
+            <a href="#features">Послуги</a>
+            <a href="#demo">Тарифи</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'dashboard:dashboard' %}">
+                    <i class="fas fa-tachometer-alt"></i> Панель
+                </a>
+                <form action="{% url 'users:logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="mobile-logout-btn">
+                        <i class="fas fa-sign-out-alt"></i> Вийти
+                    </button>
+                </form>
+            {% else %}
+                <a href="{% url 'users:login' %}">Увійти</a>
+                <a href="{% url 'users:register' %}" class="btn-primary">Реєстрація</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <main class="main-content">
+        {% if messages %}
+            <div class="messages-container">
+                <div class="container">
+                    {% for message in messages %}
+                        <div class="message message-{{ message.tags }}">
+                            <i class="fas fa-info-circle"></i>
+                            {{ message }}
+                            <button class="message-close" onclick="this.parentElement.remove()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="content-wrapper">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Продукт</h4>
+                    <a href="#features">Можливості</a>
+                    <a href="#pricing">Ціни</a>
+                    <a href="#templates">Шаблони</a>
+                    <a href="#api">API</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Підтримка</h4>
+                    <a href="#help">Довідка</a>
+                    <a href="#tutorials">Навчальні матеріали</a>
+                    <a href="#contact">Контакти</a>
+                    <a href="tel:+380123456789">+38 (012) 345-67-89</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Компанія</h4>
+                    <a href="{% url 'about' %}">Про нас</a>
+                    <a href="#blog">Блог</a>
+                    <a href="#careers">Кар'єра</a>
+                    <a href="#partners">Партнери</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Правова інформація</h4>
+                    <a href="#privacy">Політика конфіденційності</a>
+                    <a href="#terms">Умови використання</a>
+                    <a href="#security">Безпека</a>
+                    <a href="#gdpr">GDPR</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; {% now "Y" %} QuickBiz. Всі права захищені.</p>
+                    <p class="made-in-ukraine">
+                        Створено в Україні <span class="ukraine-flag" title="Україна">🇺🇦</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

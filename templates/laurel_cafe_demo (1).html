@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, shrink-to-fit=no, viewport-fit=cover">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="MobileOptimized" content="176">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Laurel Cafe - Demo</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <style>
+        :root,
+        :root.light {
+            --bg-color: #FFFFFF;
+            --popover-bg-color: #FFFFFF;
+            --text-color: #333333;
+            --accent-color: #609F6D;
+            --on-accent-color: #FFFFFF;
+            --divider-color: #80808025;
+            --ripple-color: #80808040;
+            --success-color: #609F6D;
+            --warning-color: #FFD775;
+            --error-color: #F45B55;
+            --shimmer-color-1: #555555;
+            --shimmer-color-2: #000000;
+            --shadow-light: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --shadow-heavy: 0 12px 40px rgba(0, 0, 0, 0.15);
+            --gradient-primary: linear-gradient(135deg, #609F6D 0%, #7FB069 100%);
+            --gradient-accent: linear-gradient(135deg, #FFD775 0%, #FFC300 100%);
+        }
+
+        :root.dark {
+            --bg-color: #0a0a0a;
+            --popover-bg-color: #1a1a1a;
+            --text-color: #FFFFFF;
+            --divider-color: #FFFFFF15;
+            --ripple-color: #FFFFFF30;
+            --shimmer-color-1: #D0D0D0;
+            --shimmer-color-2: #FFFFFF;
+            --shadow-light: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.4);
+            --shadow-heavy: 0 12px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            background: linear-gradient(180deg, var(--bg-color) 0%, var(--popover-bg-color) 100%);
+            font-family: 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            min-height: 100vh;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin: 0;
+            font-family: 'Rubik', sans-serif;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        h1 {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            margin-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+        }
+
+        h3 {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+        }
+
+        h6 {
+            font-size: clamp(0.875rem, 2vw, 1rem);
+            font-weight: 500;
+        }
+
+        p {
+            margin: 0;
+            font-size: clamp(0.875rem, 2vw, 1rem);
+            opacity: 0.8;
+            line-height: 1.5;
+        }
+
+        p.small {
+            font-size: clamp(0.75rem, 1.8vw, 0.875rem);
+            opacity: 0.7;
+        }
+
+        /* Responsive Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 2rem;
+            }
+        }
+
+        /* Cover Image - Responsive */
+        .cover {
+            width: 100%;
+            height: 40vh;
+            min-height: 250px;
+            max-height: 400px;
+            object-fit: cover;
+            border-bottom-left-radius: clamp(16px, 4vw, 32px);
+            border-bottom-right-radius: clamp(16px, 4vw, 32px);
+            box-shadow: var(--shadow-medium);
+            transition: transform 0.3s ease;
+        }
+
+        @media (min-width: 768px) {
+            .cover {
+                height: 50vh;
+            }
+        }
+
+        /* Logo Container - Responsive */
+        .cafe-logo-container {
+            position: absolute;
+            width: clamp(60px, 15vw, 80px);
+            height: clamp(60px, 15vw, 80px);
+            right: clamp(20px, 5vw, 40px);
+            top: calc(40vh - clamp(30px, 7.5vw, 40px));
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--popover-bg-color) 0%, var(--bg-color) 100%);
+            box-shadow: var(--shadow-heavy);
+            z-index: 10;
+            border: 3px solid var(--accent-color);
+            transition: all 0.3s ease;
+        }
+
+        @media (min-width: 768px) {
+            .cafe-logo-container {
+                top: calc(50vh - clamp(30px, 7.5vw, 40px));
+            }
+        }
+
+        .cafe-logo-container:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: var(--shadow-heavy), 0 0 20px var(--accent-color);
+        }
+
+        .cafe-logo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        /* Info Container - Enhanced */
+        .cafe-info-container {
+            position: relative;
+            z-index: 5;
+            margin: -2rem 1rem 0;
+            padding: clamp(20px, 5vw, 32px);
+            border-radius: clamp(20px, 5vw, 32px);
+            background: linear-gradient(135deg, var(--popover-bg-color) 0%, var(--bg-color) 100%);
+            box-shadow: var(--shadow-heavy);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--divider-color);
+            transition: all 0.3s ease;
+        }
+
+        @media (min-width: 768px) {
+            .cafe-info-container {
+                margin: -3rem 2rem 0;
+                padding: 2rem;
+            }
+        }
+
+        .cafe-info-container:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-heavy), 0 0 30px rgba(96, 159, 109, 0.1);
+        }
+
+        .cafe-kitchen-categories {
+            font-size: clamp(0.875rem, 2vw, 1rem);
+            opacity: 0.8;
+            margin: 0.5rem 0 1rem;
+        }
+
+        .cafe-parameters-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .cafe-parameter-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--divider-color);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .cafe-parameter-container:hover {
+            background: var(--accent-color);
+            color: var(--on-accent-color);
+            transform: translateY(-2px);
+        }
+
+        .cafe-parameter-icon {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        .cafe-parameter-value {
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .cafe-status {
+            padding: 0.5rem 1rem;
+            background: var(--gradient-primary);
+            border-radius: 20px;
+            color: white;
+            font-weight: 500;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+            box-shadow: var(--shadow-light);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Section Styling */
+        .cafe-section-container {
+            margin: clamp(2rem, 5vw, 3rem) 0;
+        }
+
+        .cafe-section-title {
+            margin: 0 1rem clamp(1rem, 3vw, 1.5rem);
+            font-size: clamp(1.25rem, 3vw, 1.5rem);
+            position: relative;
+        }
+
+        @media (min-width: 768px) {
+            .cafe-section-title {
+                margin: 0 2rem clamp(1rem, 3vw, 1.5rem);
+            }
+        }
+
+        .cafe-section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 3rem;
+            height: 3px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+
+        /* Horizontal Scrolling - Enhanced */
+        .cafe-section-horizontal {
+            display: flex;
+            gap: clamp(12px, 3vw, 20px);
+            padding: 1rem;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        @media (min-width: 768px) {
+            .cafe-section-horizontal {
+                padding: 1rem 2rem;
+                gap: 1.5rem;
+            }
+        }
+
+        .cafe-section-horizontal::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Vertical Grid for larger screens */
+        .cafe-section-vertical {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: clamp(16px, 4vw, 24px);
+            padding: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .cafe-section-vertical {
+                padding: 1rem 2rem;
+            }
+        }
+
+        /* Category Cards - Enhanced */
+        .cafe-category-container {
+            min-width: clamp(80px, 20vw, 120px);
+            height: clamp(80px, 20vw, 120px);
+            padding: 1rem;
+            border-radius: clamp(16px, 4vw, 24px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+        }
+
+        .cafe-category-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .cafe-category-container:hover::before {
+            opacity: 1;
+        }
+
+        .cafe-category-container:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .cafe-category-container:active {
+            transform: translateY(-4px) scale(1.02);
+        }
+
+        .cafe-category-icon {
+            width: clamp(32px, 8vw, 48px);
+            height: clamp(32px, 8vw, 48px);
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+            filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.1));
+        }
+
+        .cafe-category-container:hover .cafe-category-icon {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        .cafe-category-name {
+            font-size: clamp(0.7rem, 2vw, 0.9rem);
+            font-weight: 500;
+            color: var(--text-color);
+            opacity: 0.9;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .cafe-category-container:hover .cafe-category-name {
+            opacity: 1;
+            transform: translateY(-2px);
+        }
+
+        /* Menu Items - Enhanced */
+        .cafe-item-container {
+            min-width: clamp(200px, 45vw, 280px);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            background: var(--popover-bg-color);
+            border-radius: clamp(16px, 4vw, 24px);
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+            border: 1px solid var(--divider-color);
+        }
+
+        @media (min-width: 768px) {
+            .cafe-item-container {
+                min-width: 300px;
+            }
+        }
+
+        .cafe-item-container:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: var(--shadow-heavy);
+            border-color: var(--accent-color);
+        }
+
+        .cafe-item-container:active {
+            transform: translateY(-6px) scale(1.01);
+        }
+
+        .cafe-item-image {
+            width: 100%;
+            height: clamp(120px, 30vw, 200px);
+            object-fit: cover;
+            transition: all 0.4s ease;
+            border-radius: clamp(16px, 4vw, 24px) clamp(16px, 4vw, 24px) 0 0;
+        }
+
+        @media (min-width: 768px) {
+            .cafe-item-image {
+                height: 200px;
+            }
+        }
+
+        .cafe-item-container:hover .cafe-item-image {
+            transform: scale(1.1);
+        }
+
+        .cafe-item-content {
+            padding: clamp(12px, 3vw, 20px);
+        }
+
+        .cafe-item-name {
+            margin: 0 0 0.5rem;
+            font-weight: 600;
+            color: var(--text-color);
+            transition: color 0.3s ease;
+        }
+
+        .cafe-item-container:hover .cafe-item-name {
+            color: var(--accent-color);
+        }
+
+        .cafe-item-description {
+            opacity: 0.7;
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        .cafe-item-price {
+            margin-top: 0.75rem;
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            font-weight: 600;
+            color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .cafe-item-price::before {
+            content: '💰';
+            font-size: 1rem;
+        }
+
+        /* Interactive Elements */
+        .theme-toggle {
+            position: fixed;
+            top: clamp(20px, 5vw, 30px);
+            right: clamp(20px, 5vw, 30px);
+            width: clamp(50px, 12vw, 60px);
+            height: clamp(50px, 12vw, 60px);
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: clamp(1.25rem, 3vw, 1.5rem);
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: var(--shadow-medium);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(15deg);
+            box-shadow: var(--shadow-heavy), 0 0 20px var(--accent-color);
+        }
+
+        .theme-toggle:active {
+            transform: scale(0.95);
+        }
+
+        /* Demo Navigation */
+        .demo-nav {
+            position: fixed;
+            bottom: clamp(20px, 5vw, 30px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gradient-primary);
+            padding: clamp(12px, 3vw, 16px) clamp(20px, 5vw, 32px);
+            border-radius: 50px;
+            color: white;
+            font-size: clamp(0.875rem, 2vw, 1rem);
+            font-weight: 500;
+            z-index: 1000;
+            box-shadow: var(--shadow-heavy);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .demo-nav:hover {
+            transform: translateX(-50%) translateY(-4px) scale(1.05);
+            box-shadow: var(--shadow-heavy), 0 0 30px rgba(96, 159, 109, 0.3);
+        }
+
+        .demo-nav:active {
+            transform: translateX(-50%) translateY(-2px) scale(1.02);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .animate-on-scroll {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .animate-on-scroll:nth-child(even) {
+            animation: slideInRight 0.6s ease-out forwards;
+        }
+
+        /* Ripple Effect */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            pointer-events: none;
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* Loading States */
+        .shimmer {
+            background: linear-gradient(
+                90deg,
+                var(--shimmer-color-1) 0%,
+                var(--shimmer-color-2) 50%,
+                var(--shimmer-color-1) 100%
+            );
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 480px) {
+            .cafe-parameters-container {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.5rem;
+            }
+            
+            .cafe-parameter-container {
+                justify-content: center;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .cafe-section-horizontal {
+                justify-content: center;
+                flex-wrap: wrap;
+                overflow-x: visible;
+            }
+        }
+
+        /* Enhanced hover states for touch devices */
+        @media (hover: none) {
+            .cafe-category-container:hover,
+            .cafe-item-container:hover {
+                transform: none;
+            }
+            
+            .cafe-category-container:active,
+            .cafe-item-container:active {
+                transform: scale(0.95);
+            }
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .theme-toggle,
+            .demo-nav {
+                display: none;
+            }
+            
+            body {
+                background: white;
+                color: black;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
+    
+    <div id="content">
+        <div id="page-current" class="page">
+            <section>
+                <!-- Cover Image -->
+                <img class="cover" 
+                     src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800&h=600&fit=crop&auto=format&q=80" 
+                     alt="Laurel Cafe Interior"
+                     loading="eager" />
+                
+                <!-- Cafe Logo -->
+                <div class="cafe-logo-container">
+                    <svg class="cafe-logo" xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 128 128">
+                        <rect width="128" height="128" fill="#609f6d" rx="20"/>
+                        <g transform="matrix(0.31666511,0,0,0.31666511,21.367077,22.921583)" fill="#ffffff">
+                            <path d="m 210.3,16.6 c -0.5,2.6 -0.3,11 0.4,14.2 1.2,5.6 1.7,6.9 3.9,10.7 2.2,3.6 5.8,7.1 7,6.7 1.1,-0.3 2.6,-3.9 3.1,-7.4 0.5,-3.2 0.4,-4.1 -0.4,-7.3 -1.7,-6.6 -6.4,-14 -10.8,-16.9 -1.2,-0.8 -2.4,-1.5 -2.5,-1.5 -0.2,0 -0.5,0.7 -0.7,1.5 z"/>
+                            <path d="m 236.5,31.2 c -1.8,1.8 -5.5,7.9 -7.9,12.7 -2.2,4.5 -3.6,9.5 -3.6,13.5 0,3.8 0.9,8 1.9,8.4 1,0.4 4.7,-1.5 6.5,-3.5 5,-5.2 6.9,-9.8 7.3,-18.2 0.2,-4.6 0.1,-6.2 -0.8,-9.7 -0.6,-2.4 -1.2,-4.4 -1.4,-4.6 -0.2,-0.3 -1.1,0.4 -2,1.4 z"/>
+                        </g>
+                    </svg>
+                </div>
+                
+                <!-- Cafe Info -->
+                <div class="cafe-info-container animate-on-scroll">
+                    <h1>Laurel Cafe</h1>
+                    <p class="cafe-kitchen-categories">☕ Coffee • 🥐 Pastries • 🥗 Light Meals • 🍰 Desserts</p>
+                    <div class="cafe-parameters-container">
+                        <div class="cafe-parameter-container">
+                            <svg class="cafe-parameter-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 -960 960 960">
+                                <path fill="#FFC300" d="M480-229 314-129q-11 7-23 6t-21-8q-9-7-14-17.5t-2-23.5l44-189-147-127q-10-9-12.5-20.5T140-531q4-11 12-18t22-9l194-17 75-178q5-12 15.5-18t21.5-6q11 0 21.5 6t15.5 18l75 178 194 17q14 2 22 9t12 18q4 11 1.5 22.5T809-488L662-361l44 189q3 13-2 23.5T690-131q-9 7-21 8t-23-6L480-229Z"/>
+                            </svg>
+                            <div class="cafe-parameter-value">4.8 (250+)</div>
+                        </div>
+                        <div class="cafe-parameter-container">
+                            <svg class="cafe-parameter-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 -960 960 960">
+                                <path fill="currentColor" d="M520-496v-144q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640v159q0 8 3 15.5t9 13.5l132 132q11 11 28 11t28-11q11-11 11-28t-11-28L520-496ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Z"/>
+                            </svg>
+                            <div class="cafe-parameter-value">15-20 min</div>
+                        </div>
+                        <div class="cafe-status">🟢 Open Now</div>
+                    </div>
+                </div>
+                
+                <!-- Categories Section -->
+                <div class="cafe-section-container animate-on-scroll">
+                    <h3 class="cafe-section-title">Explore Categories</h3>
+                    <div class="cafe-section-horizontal">
+                        <div class="cafe-category-container" style="background: linear-gradient(135deg, #FFE4B5 0%, #F4A460 100%);" onclick="showCategory('Coffee')">
+                            <svg class="cafe-category-icon" xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32">
+                                <path fill="#8B4513" d="M445-255.386q-110.076 0-187.537-75.345-77.462-75.346-77.462-184.653V-760q0-24.538 17.731-42.268 17.73-17.731 42.268-17.731h495q51.785 0 88.392 35.808 36.607 35.807 36.607 87.268 0 52.582-36.385 89.752-36.384 37.17-88.614 37.17h-28.847v54.617q0 108.642-76.115 184.32T445-255.386Z"/>
+                            </svg>
+                            <div class="cafe-category-name">Coffee</div>
+                        </div>
+                        <div class="cafe-category-container" style="background: linear-gradient(135deg, #FFB6C1 0%, #FF69B4 100%);" onclick="showCategory('Pasta')">
+                            <svg class="cafe-category-icon" xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32">
+                                <path fill="#DC143C" d="M337.694-163.847q-90.692-33-158.038-99.615-67.346-66.614-76.193-160.383-1.154-14.692 8.423-25.423 9.577-10.731 24.269-10.731h43.846v-292.462q0-13.461 9.039-23.5 9.038-10.038 22.5-11.653l621.997-69.154q11.308-1.615 18.885 5.654 7.577 7.269 7.577 18.577 0 8.692-6.462 15.461-6.461 6.769-15.153 7.769l-419.923 46.692v76.078h417.692q10.307 0 17.076 6.769 6.77 6.769 6.77 17.076 0 10.308-6.77 17.077-6.769 6.769-17.076 6.769H418.461v178.847h405.384q14.692 0 24.461 10.731 9.769 10.731 8.615 25.423-8.846 94.153-76.385 160.96-67.538 66.807-158.999 99.038Z"/>
+                            </svg>
+                            <div class="cafe-category-name">Pasta</div>
+                        </div>
+                        <div class="cafe-category-container" style="background: linear-gradient(135deg, #98FB98 0%, #32CD32 100%);" onclick="showCategory('Pizza')">
+                            <svg class="cafe-category-icon" xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32">
+                                <path fill="#228B22" d="M479.914-819.999q81.932 0 166.585 27.116 84.653 27.115 150.807 76.114 14.846 10.991 22.269 26.56 7.423 15.57 7.423 32.055 0 9.872-3.115 20.193-3.116 10.32-9.346 20.192L540.461-206.54q-10.846 16.269-27.115 24.403-16.269 8.135-33.393 8.135-17.123 0-33.346-8.039-16.222-8.038-27.068-24.499L145.463-617.769q-6.378-9.943-9.112-19.885-2.734-9.942-2.734-19.884 0-16.377 7.423-31.845 7.423-15.467 22.269-26.386 66.154-48.384 150.413-76.307 84.26-27.923 166.192-27.923Z"/>
+                            </svg>
+                            <div class="cafe-category-name">Pizza</div>
+                        </div>
+                        <div class="cafe-category-container" style="background: linear-gradient(135deg, #DDA0DD 0%, #9370DB 100%);" onclick="showCategory('Desserts')">
+                            <svg class="cafe-category-icon" xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32">
+                                <path fill="#9400D3" d="M140.001-560q0-44.846 26.808-82.192 26.807-37.345 74.885-53.192 15.307-92.153 83.153-148.384Q392.693-899.999 480-899.999q87.307 0 155.153 56.231 67.846 56.231 83.153 148.384 48.078 15.847 74.885 53.192 26.808 37.346 26.808 82.192 0 69.23-50.885 108.038-50.884 38.807-111.884 28.114L513.923-144.926q-5 9.846-13.539 14.462-8.538 4.615-18.384 4.615t-18.692-4.615q-8.846-4.616-13.846-14.462L305.539-423.848q-63.307 11.847-114.422-27.73Q140.001-491.154 140.001-560Z"/>
+                            </svg>
+                            <div class="cafe-category-name">Ice Cream</div>
+                        </div>
+                        <div class="cafe-category-container" style="background: linear-gradient(135deg, #F0E68C 0%, #DAA520 100%);" onclick="showCategory('Burgers')">
+                            <svg class="cafe-category-icon" xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32">
+                                <path fill="#B8860B" d="M172.309-140.001q-29.923 0-51.115-21.193-21.193-21.192-21.193-51.115v-79.23q0-15.462 10.347-25.808 10.346-10.346 25.807-10.346h687.69q15.461 0 25.807 10.346 10.347 10.346 10.347 25.808v79.23q0 29.923-21.193 51.115-21.192 21.193-51.115 21.193H172.309Z"/>
+                            </svg>
+                            <div class="cafe-category-name">Burgers</div>
+                        </div>
+                        <div class="cafe-category-container" style="background: linear-gradient(135deg, #FFA07A 0%, #FF6347 100%);" onclick="showCategory('Salads')">
+                            <div class="cafe-category-icon" style="font-size: 2rem;">🥗</div>
+                            <div class="cafe-category-name">Salads</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Popular Section -->
+                <div class="cafe-section-container animate-on-scroll">
+                    <h3 class="cafe-section-title">🔥 Popular Right Now</h3>
+                    <div class="cafe-section-horizontal">
+                        <div class="cafe-item-container" onclick="showItem('Cappuccino', '$4.50')">
+                            <img class="cafe-item-image" 
+                                 src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400&h=300&fit=crop&auto=format&q=80" 
+                                 alt="Cappuccino"
+                                 loading="lazy" />
+                            <div class="cafe-item-content">
+                                <h6 class="cafe-item-name">Cappuccino</h6>
+                                <p class="small cafe-item-description">Rich espresso with perfectly steamed milk and velvety microfoam</p>
+                                <div class="cafe-item-price">$4.50</div>
+                            </div>
+                        </div>
+                        <div class="cafe-item-container" onclick="showItem('Avocado Toast', '$8.90')">
+                            <img class="cafe-item-image" 
+                                 src="https://images.unsplash.com/photo-1541519227354-08fa5d50c44d?w=400&h=300&fit=crop&auto=format&q=80" 
+                                 alt="Avocado Toast"
+                                 loading="lazy" />
+                            <div class="cafe-item-content">
+                                <h6 class="cafe-item-name">Avocado Toast</h6>
+                                <p class="small cafe-item-description">Fresh avocado on artisan sourdough with cherry tomatoes and feta</p>
+                                <div class="cafe-item-price">$8.90</div>
+                            </div>
+                        </div>
+                        <div class="cafe-item-container" onclick="showItem('Chocolate Croissant', '$3.75')">
+                            <img class="cafe-item-image" 
+                                 src="https://images.unsplash.com/photo-1555507036-ab794f4afe5e?w=400&h=300&fit=crop&auto=format&q=80" 
+                                 alt="Chocolate Croissant"
+                                 loading="lazy" />
+                            <div class="cafe-item-content">
+                                <h6 class="cafe-item-name">Pain au Chocolat</h6>
+                                <p class="small cafe-item-description">Buttery, flaky pastry filled with premium dark chocolate</p>
+                                <div class="cafe-item-price">$3.75</div>
+                            </div>
+                        </div>
+                        <div class="cafe-item-container" onclick="showItem('Caesar Salad', '$12.50')">
+                            <img class="cafe-item-image" 
+                                 src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400&h=300&fit=crop&auto=format&q=80" 
+                                 alt="Caesar Salad"
+                                 loading="lazy" />
+                            <div class="cafe-item-content">
+                                <h6 class="cafe-item-name">Caesar Salad</h6>
+                                <p class="small cafe-item-description">Crisp romaine lettuce with parmesan, croutons and house-made dressing</p>
+                                <div class="cafe-item-price">$12.50</div>
+                            </div>
+                        </div>
+                        <div class="cafe-item-container" onclick="showItem('Iced Latte', '$4.25')">
+                            <img class="cafe-item-image" 
+                                 src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400&h=300&fit=crop&auto=format&q=80" 
+                                 alt="Iced Latte"
+                                 loading="lazy" />
+                            <div class="cafe-item-content">
+                                <h6 class="cafe-item-name">Iced Latte</h6>
+                                <p class="small cafe-item-description">Smooth espresso with cold milk over ice, perfectly refreshing</p>
+                                <div class="cafe-item-price">$4.25</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Featured Section -->
+                <div class="cafe-section-container animate-on-scroll">
+                    <h3 class="cafe-section-title">✨ Chef's Specials</h3>
+                    <div class="cafe-section-vertical">
+                        <div class="cafe-item-container" onclick="showItem('Truffle Pasta', '$18.90')">
+                            <img class="cafe-item-image" 
+                                 src="https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?w=400&h=300&fit=crop&auto=format&q=80" 
+                                 alt="Truffle Pasta"
+                                 loading="lazy" />
+                            <div class="cafe-item-content">
+                                <h6 class="cafe-item-name">Truffle Mushroom Pasta</h6>
+                                <p class="small cafe-item-description">House-made fettuccine with wild mushrooms, truffle oil, and parmesan</p>
+                                <div class="cafe-item-price">$18.90</div>
+                            </div>
+                        </div>
+                        <div class="cafe-item-container" onclick="showItem('Artisan Pizza', '$16.50')">
+                            <img class="cafe-item-image" 
+                                 src="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=400&h=300&fit=crop&auto=format&q=80" 
+                                 alt="Artisan Pizza"
+                                 loading="lazy" />
+                            <div class="cafe-item-content">
+                                <h6 class="cafe-item-name">Margherita Artisan Pizza</h6>
+                                <p class="small cafe-item-description">Wood-fired pizza with San Marzano tomatoes, fresh mozzarella, and basil</p>
+                                <div class="cafe-item-price">$16.50</div>
+                            </div>
+                        </div>
+                        <div class="cafe-item-container" onclick="showItem('Berry Cheesecake', '$7.25')">
+                            <img class="cafe-item-image" 
+                                 src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400&h=300&fit=crop&auto=format&q=80" 
+                                 alt="Berry Cheesecake"
+                                 loading="lazy" />
+                            <div class="cafe-item-content">
+                                <h6 class="cafe-item-name">Mixed Berry Cheesecake</h6>
+                                <p class="small cafe-item-description">Creamy New York style cheesecake topped with fresh seasonal berries</p>
+                                <div class="cafe-item-price">$7.25</div>
+                            </div>
+                        </div>
+                        <div class="cafe-item-container" onclick="showItem('Specialty Coffee', '$5.75')">
+                            <img class="cafe-item-image" 
+                                 src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=400&h=300&fit=crop&auto=format&q=80" 
+                                 alt="Specialty Coffee"
+                                 loading="lazy" />
+                            <div class="cafe-item-content">
+                                <h6 class="cafe-item-name">Single Origin Pour Over</h6>
+                                <p class="small cafe-item-description">Ethiopian Yirgacheffe beans, hand-brewed to perfection</p>
+                                <div class="cafe-item-price">$5.75</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <div class="demo-nav" onclick="showDemoAlert()">
+        🍽️ Interactive Demo - Tap to explore features!
+    </div>
+
+    <script>
+        // Theme Toggle Functionality
+        function toggleTheme() {
+            const root = document.documentElement;
+            const themeToggle = document.querySelector('.theme-toggle');
+            
+            if (root.classList.contains('dark')) {
+                root.classList.remove('dark');
+                themeToggle.textContent = '🌙';
+                themeToggle.setAttribute('aria-label', 'Switch to dark mode');
+            } else {
+                root.classList.add('dark');
+                themeToggle.textContent = '☀️';
+                themeToggle.setAttribute('aria-label', 'Switch to light mode');
+            }
+            
+            // Save preference
+            localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+        }
+
+        // Load saved theme preference
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.documentElement.classList.add('dark');
+                document.querySelector('.theme-toggle').textContent = '☀️';
+            }
+        }
+
+        // Demo Alert with enhanced features
+        function showDemoAlert() {
+            const features = [
+                '🎨 Beautiful responsive design',
+                '🌙 Dark/light theme support', 
+                '📱 Mobile-first approach',
+                '✨ Smooth animations & transitions',
+                '🎯 Interactive hover effects',
+                '🔄 Touch-friendly interactions',
+                '⚡ Fast loading with optimized images',
+                '♿ Accessibility features'
+            ];
+            
+            const message = `Welcome to Laurel Cafe! 🌿☕\n\nThis demo showcases:\n${features.join('\n')}\n\nIn the full Telegram Web App:\n✓ Browse complete menu\n✓ Add items to cart\n✓ Customize your order\n✓ Secure payment integration\n✓ Real-time order tracking\n\nTap the theme toggle (${document.documentElement.classList.contains('dark') ? '☀️' : '🌙'}) to switch themes!`;
+            
+            alert(message);
+        }
+
+        // Category interaction
+        function showCategory(categoryName) {
+            const messages = {
+                'Coffee': '☕ Coffee Menu\n\n• Espresso - $3.50\n• Cappuccino - $4.50\n• Latte - $4.25\n• Americano - $3.75\n• Mocha - $5.25\n• Cold Brew - $4.00',
+                'Pasta': '🍝 Pasta Selection\n\n• Carbonara - $15.90\n• Truffle Mushroom - $18.90\n• Pesto Genovese - $14.50\n• Bolognese - $16.25\n• Aglio e Olio - $12.75',
+                'Pizza': '🍕 Artisan Pizzas\n\n• Margherita - $16.50\n• Pepperoni - $18.75\n• Quattro Stagioni - $19.90\n• Prosciutto - $21.50\n• Vegetarian - $17.25',
+                'Desserts': '🍰 Sweet Treats\n\n• Tiramisu - $6.75\n• Cheesecake - $7.25\n• Gelato - $4.50\n• Cannoli - $5.95\n• Panna Cotta - $6.25',
+                'Burgers': '🍔 Gourmet Burgers\n\n• Classic Beef - $14.90\n• Chicken Deluxe - $13.75\n• Veggie Burger - $12.50\n• BBQ Bacon - $16.25\n• Fish Burger - $15.50',
+                'Salads': '🥗 Fresh Salads\n\n• Caesar Salad - $12.50\n• Greek Salad - $11.75\n• Quinoa Bowl - $13.90\n• Arugula Salad - $10.50\n• Cobb Salad - $14.25'
+            };
+            
+            alert(messages[categoryName] || `${categoryName} menu coming soon!`);
+            
+            // Add visual feedback
+            const categoryElement = event.target.closest('.cafe-category-container');
+            if (categoryElement) {
+                categoryElement.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    categoryElement.style.transform = '';
+                }, 150);
+            }
+        }
+
+        // Item interaction with enhanced details
+        function showItem(itemName, price) {
+            const itemDetails = {
+                'Cappuccino': {
+                    description: 'A perfect balance of espresso, steamed milk, and foam',
+                    ingredients: 'Single origin espresso, whole milk, cinnamon dust',
+                    allergens: 'Contains dairy',
+                    calories: '120 cal'
+                },
+                'Avocado Toast': {
+                    description: 'Fresh avocado on artisan sourdough',
+                    ingredients: 'Hass avocado, sourdough bread, cherry tomatoes, feta, lime',
+                    allergens: 'Contains gluten, dairy',
+                    calories: '380 cal'
+                }
+            };
+            
+            const details = itemDetails[itemName] || {
+                description: 'Deliciously prepared with fresh ingredients',
+                ingredients: 'Made with care using premium ingredients',
+                allergens: 'Please ask staff about allergens',
+                calories: 'Nutritional info available on request'
+            };
+            
+            const message = `${itemName} ${price}\n\n${details.description}\n\n🥄 Ingredients: ${details.ingredients}\n⚠️ ${details.allergens}\n📊 ${details.calories}\n\nIn the full app, you could:\n✓ Select size/variants\n✓ Add to cart\n✓ Customize your order`;
+            
+            alert(message);
+        }
+
+        // Ripple effect for touch feedback
+        function createRipple(event) {
+            const button = event.currentTarget;
+            const circle = document.createElement('span');
+            const diameter = Math.max(button.clientWidth, button.clientHeight);
+            const radius = diameter / 2;
+            
+            const rect = button.getBoundingClientRect();
+            circle.style.width = circle.style.height = diameter + 'px';
+            circle.style.left = (event.clientX - rect.left - radius) + 'px';
+            circle.style.top = (event.clientY - rect.top - radius) + 'px';
+            circle.classList.add('ripple');
+            
+            const ripple = button.getElementsByClassName('ripple')[0];
+            if (ripple) {
+                ripple.remove();
+            }
+            
+            button.appendChild(circle);
+        }
+
+        // Intersection Observer for animations
+        function setupScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            document.querySelectorAll('.animate-on-scroll').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        }
+
+        // Enhanced image loading with fade-in effect
+        function setupImageLoading() {
+            const images = document.querySelectorAll('img[loading="lazy"]');
+            
+            images.forEach(img => {
+                img.style.opacity = '0';
+                img.style.transition = 'opacity 0.3s ease';
+                
+                img.addEventListener('load', () => {
+                    img.style.opacity = '1';
+                });
+                
+                // Fallback for already loaded images
+                if (img.complete) {
+                    img.style.opacity = '1';
+                }
+            });
+        }
+
+        // Performance optimization
+        function setupPerformanceOptimizations() {
+            // Reduce animations on slower devices
+            if (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2) {
+                document.documentElement.style.setProperty('--animation-duration', '0.2s');
+            }
+            
+            // Preload critical images
+            const criticalImages = [
+                'https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800&h=600&fit=crop&auto=format&q=80'
+            ];
+            
+            criticalImages.forEach(src => {
+                const link = document.createElement('link');
+                link.rel = 'preload';
+                link.as = 'image';
+                link.href = src;
+                document.head.appendChild(link);
+            });
+        }
+
+        // Initialize everything
+        function init() {
+            loadTheme();
+            setupScrollAnimations();
+            setupImageLoading();
+            setupPerformanceOptimizations();
+            
+            // Add ripple effect to interactive elements
+            document.querySelectorAll('.cafe-category-container, .cafe-item-container, .theme-toggle, .demo-nav').forEach(el => {
+                el.addEventListener('click', createRipple);
+            });
+            
+            // Smooth scroll for horizontal sections
+            document.querySelectorAll('.cafe-section-horizontal').forEach(section => {
+                section.style.scrollBehavior = 'smooth';
+            });
+            
+            // Welcome message
+            setTimeout(() => {
+                console.log(`🌿 Welcome to Laurel Cafe Demo!
+                
+🎨 Features showcased:
+• Responsive design for all devices
+• Beautiful animations and transitions  
+• Dark/light theme support
+• Touch-friendly interactions
+• Optimized performance
+• Accessibility features
+
+📱 Try these interactions:
+• Tap categories and menu items
+• Toggle between light/dark themes
+• Scroll through menu sections
+• Test on different screen sizes
+
+Built with modern web technologies for the best user experience! ☕✨`);
+            }, 1000);
+        }
+
+        // Handle system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                if (e.matches) {
+                    document.documentElement.classList.add('dark');
+                    document.querySelector('.theme-toggle').textContent = '☀️';
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    document.querySelector('.theme-toggle').textContent = '🌙';
+                }
+            }
+        });
+
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    </script>
+</body>
+</html>
