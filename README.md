@@ -20,6 +20,14 @@ QuickBiz дозволяє власникам ресторанів, салоні�
 - **База даних:** PostgreSQL / SQLite
 - **Аналітика:** Власна система відстеження
 
+## 🖼 Дезайн
+
+<img width="580" height="959" alt="image" src="https://github.com/user-attachments/assets/ac9920e3-0df7-4741-a3ba-145aa20a0236" />
+
+<img width="476" height="933" alt="image" src="https://github.com/user-attachments/assets/3fda815f-2a85-4aa4-8561-3b4e6203cb7e" />
+
+<img width="490" height="956" alt="image" src="https://github.com/user-attachments/assets/01d7e880-a4eb-4752-9e21-5715da822f1c" />
+
 ## 📦 Встановлення
 ```bash
 # Клонувати репозиторій
@@ -75,5 +83,6 @@ Bogdan - tabakar29@gmail.com
 ## 📝 Ліцензія
 
 MIT License
+
 
 
