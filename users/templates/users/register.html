@@ -304,20 +304,87 @@
             text-decoration: underline;
         }
 
-        @media (max-width: 480px) {
-            .auth-container {
-                padding: 30px 20px;
-                margin: 10px;
-            }
-            
-            .back-home {
-                position: relative;
-                top: auto;
-                left: auto;
-                margin-bottom: 20px;
-                justify-content: center;
-            }
-        }
+        /* Mobile styles */
+@media (max-width: 480px) {
+    body {
+        padding: 0;
+        display: block; /* Change from flex to block */
+        min-height: 100vh;
+    }
+    
+    .back-home {
+        position: static;
+        margin: 0;
+        padding: 16px 20px;
+        background: white;
+        border-bottom: 1px solid var(--border-color);
+        justify-content: flex-start; /* Align left */
+        border-radius: 0;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .auth-container {
+        padding: 32px 20px;
+        margin: 0;
+        border-radius: 0;
+        box-shadow: none;
+        min-height: calc(100vh - 56px); /* Full height minus back button */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    .auth-container::before {
+        display: none; /* Hide top gradient line on mobile */
+    }
+    
+    .logo-section {
+        margin-bottom: 32px;
+    }
+    
+    .logo {
+        font-size: 28px;
+    }
+    
+    .logo::before {
+        font-size: 32px;
+    }
+    
+    .auth-subtitle {
+        font-size: 15px;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .form-label {
+        font-size: 14px;
+        margin-bottom: 6px;
+    }
+    
+    .form-input {
+        padding: 14px 16px;
+        font-size: 16px; /* Prevents iOS zoom */
+        border-radius: 10px;
+    }
+    
+    .btn-primary,
+    .btn-google {
+        padding: 15px;
+        font-size: 16px;
+        border-radius: 10px;
+    }
+    
+    .divider {
+        margin: 24px 0;
+    }
+    
+    .auth-footer {
+        margin-top: 24px;
+        padding-top: 24px;
+    }
+}
     </style>
 </head>
 <body>
